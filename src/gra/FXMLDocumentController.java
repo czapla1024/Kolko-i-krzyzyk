@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -113,19 +114,22 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void move(MouseEvent event) {
-        ImageView img = (ImageView)event.getTarget();
-        img.setImage(x);
-        short col=(short) (img.getId().toCharArray()[2]-48);
-        short row=(short) (img.getId().toCharArray()[1]-48);
-        tab[col][row]=1;
-        if(checkWin()){
-            board.setDisable(true);
-            label.setText("You won!");
+        EventTarget target=event.getTarget();
+        if(target instanceof javafx.scene.image.ImageView) {
+            ImageView img = (ImageView)event.getTarget();
+            short col=(short) (img.getId().toCharArray()[2]-48);
+            short row=(short) (img.getId().toCharArray()[1]-48);
+            if(tab[col][row]==0) {
+                img.setImage(x);
+                tab[col][row]=1;
+                if(checkWin()){
+                    board.setDisable(true);
+                    label.setText("You won!");
+                }
+                else
+                    ai();
+            }
         }
-        else
-            ai();
-        
-            
     }
     
     @Override
