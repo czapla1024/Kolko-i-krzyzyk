@@ -7,20 +7,16 @@ package gra;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
-import java.util.function.Predicate;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -67,12 +63,7 @@ public class FXMLDocumentController implements Initializable {
         board.setDisable(false);
         board.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         board.setStyle("-fx-border-color: black");
-        for (Node obr : board.getChildren().filtered(new Predicate<Node>() {
-            @Override
-            public boolean test(Node t) {
-                return t.getId() != null;
-            }
-        })) {
+        for (Node obr : board.getChildren().filtered((Node t) -> t.getId() != null)) {
             obr2 = (ImageView) obr;
             obr2.setImage(null);
         }
@@ -208,8 +199,6 @@ public class FXMLDocumentController implements Initializable {
         }
         if (!wybor.isEmpty())
             return wybor;
-        countAI = 0;
-        countEm = 0;
         for (i = 0; i < 3; i++) //brak lepszych ruchów
             for (j = 0; j < 3; j++) 
                 if (tab[i][j] == 0)
@@ -291,12 +280,9 @@ public class FXMLDocumentController implements Initializable {
                     rowAI = (short) (ind / 3);
                     colAI = (short) (ind % 3);
                     tab[rowAI][colAI] = -1;
-                    FilteredList<Node> pole = board.getChildren().filtered(new Predicate<Node>() {
-                        @Override
-                        public boolean test(Node t) {
-                            final String ID = t.getId();
-                            return ID!=null && ID.equals("c"+colAI+rowAI);
-                        }
+                    FilteredList<Node> pole = board.getChildren().filtered((Node t) -> {
+                        final String ID = t.getId();
+                        return ID!=null && ID.equals("c"+colAI+rowAI);
                     });
                     for (Node n : pole) {
                         img = (ImageView) n;
