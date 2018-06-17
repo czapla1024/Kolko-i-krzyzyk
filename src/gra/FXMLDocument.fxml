@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="253.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gra.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gra.FXMLDocumentController">
     <children>
       <BorderPane layoutX="71.0" prefHeight="327.0" prefWidth="256.0">
          <top>
@@ -57,5 +59,17 @@
             </GridPane>
          </center>
       </BorderPane>
+      <ToggleButton fx:id="easy" disable="true" layoutX="64.0" layoutY="336.0" mnemonicParsing="false" onAction="#setEasy" prefHeight="25.0" prefWidth="42.0" selected="true" style="-fx-background-radius: 10 0 0 10;" text="Easy">
+         <toggleGroup>
+            <ToggleGroup fx:id="diff" />
+         </toggleGroup>
+      </ToggleButton>
+      <ToggleButton fx:id="hard" layoutX="106.0" layoutY="336.0" mnemonicParsing="false" onAction="#setHard" style="-fx-background-radius: 0 10 10 0;" text="Hard" toggleGroup="$diff" />
+      <ToggleButton fx:id="pcfirst" disable="true" layoutX="202.0" layoutY="336.0" mnemonicParsing="false" onAction="#setPC" prefHeight="25.0" prefWidth="76.0" selected="true" style="-fx-background-radius: 10 0 0 10;" text="Player first">
+         <toggleGroup>
+            <ToggleGroup fx:id="order" />
+         </toggleGroup>
+      </ToggleButton>
+      <ToggleButton fx:id="aifirst" layoutX="278.0" layoutY="336.0" mnemonicParsing="false" onAction="#setAI" prefHeight="25.0" prefWidth="76.0" style="-fx-background-radius: 0 10 10 0;" text="AI first" toggleGroup="$order" />
     </children>
 </AnchorPane>
