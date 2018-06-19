@@ -428,7 +428,7 @@ public class FXMLDocumentController implements Initializable {
         pole.stream().map((n) -> (ImageView) n).forEachOrdered((img) -> {
             img.setImage(o);
         });
-        if (checkTie()) {
+        if (!board.isDisabled() && checkTie()) {
             board.setDisable(true);
             board.setStyle("-fx-border-color: yellow");
             label.setText("A tie!");
